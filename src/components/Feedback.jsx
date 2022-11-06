@@ -1,16 +1,10 @@
 import React from 'react';
+// import styled from 'styled-components';
 import { Statistics } from './Statistics/Statistics';
-import { LeaveFeedback } from './LeaveFeedback/LeaveFeedback';
-import styled from 'styled-components';
+import { FeedbackOptions } from './FeedbackOptions/FeedbackOptions';
+import { Section } from './Section/Section';
 
 const feedbackOptions = [`good`, `neutral`, `bad`];
-const Section = styled.section`
-  margin: auto;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  flex-direction: column;
-`;
 
 export class Feedback extends React.Component {
   state = {
@@ -19,21 +13,24 @@ export class Feedback extends React.Component {
     bad: 0,
   };
 
-  onButtonClick = e =>
+  onLeaveFeedback = e =>
     this.setState(prevState => {
       return { [e.target.name]: prevState[e.target.name] + 1 };
     });
 
   render() {
     return (
-      <Section>
-        <LeaveFeedback
-          title={`Please leave feedback`}
-          options={feedbackOptions}
-          onButtonClick={this.onButtonClick}
-        />
-        <Statistics data={this.state} title={`Statistics`}></Statistics>
-      </Section>
+      <>
+        <Section title={`Please leave feedback`}>
+          <FeedbackOptions
+            options={feedbackOptions}
+            onLeaveFeedback={this.onLeaveFeedback}
+          />
+        </Section>
+        <Section title={'Statistics'}>
+          <Statistics data={this.state}></Statistics>
+        </Section>
+      </>
     );
   }
 }

@@ -2,9 +2,6 @@ import PropTypes from 'prop-types';
 import styled from 'styled-components';
 
 const FB = styled.section``;
-const Title = styled.h1`
-  margin-bottom: 20px;
-`;
 const FBButtons = styled.button`
   color: black;
 `;
@@ -13,14 +10,13 @@ const OptionsList = styled.ul`
   display: flex;
   gap: 10px;
 `;
-export const LeaveFeedback = ({ title, options, onButtonClick }) => {
+export const FeedbackOptions = ({ options, onLeaveFeedback }) => {
   return (
     <FB>
-      <Title>{title}</Title>
       <OptionsList>
         {options.map(option => (
           <li key={option}>
-            <FBButtons onClick={onButtonClick} name={option}>
+            <FBButtons onClick={onLeaveFeedback} name={option}>
               {option[0].toUpperCase() + option.slice(1)}
             </FBButtons>
           </li>
@@ -30,8 +26,7 @@ export const LeaveFeedback = ({ title, options, onButtonClick }) => {
   );
 };
 
-LeaveFeedback.prototypes = {
-  title: PropTypes.string,
-  options: PropTypes.array,
-  onButtonClick: PropTypes.func,
+FeedbackOptions.propTypes = {
+  options: PropTypes.array.isRequired,
+  onLeaveFeedback: PropTypes.func.isRequired,
 };

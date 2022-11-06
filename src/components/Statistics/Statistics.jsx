@@ -1,15 +1,17 @@
 import PropTypes from 'prop-types';
 import styled from 'styled-components';
+import { Notification } from './Notification';
 
 const List = styled.ul`
   list-style: none;
 `;
 
-export const Statistics = ({ title, data: { good, neutral, bad } }) => {
+export const Statistics = ({ data: { good, neutral, bad } }) => {
   const total = good + neutral + bad;
-  return (
+  return total === 0 ? (
+    <Notification text="There is no feedback" />
+  ) : (
     <List>
-      <h2>{title}</h2>
       <li>Good: {good}</li>
       <li>Neutral: {neutral}</li>
       <li>Bad: {bad}</li>
@@ -19,7 +21,6 @@ export const Statistics = ({ title, data: { good, neutral, bad } }) => {
   );
 };
 
-Statistics.prototypes = {
-  title: PropTypes.string,
-  data: PropTypes.array,
+Statistics.propTypes = {
+  data: PropTypes.array.isRequired,
 };
